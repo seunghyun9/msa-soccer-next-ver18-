@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState, useEffect} from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,7 +12,7 @@ import Router from "next/router";
 import Link from "next/link";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
-import tableStyles from "../styles/Table.module.css"
+import tableStyles from "@/styles/Table.module.css"
 import MenuItem from '@mui/material/MenuItem';
 import { createSvgIcon } from '@mui/material/utils';
 
@@ -20,9 +20,10 @@ const HomeIcon = createSvgIcon(
   <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />,
   'Home',
 );
+
 const pages = ['카운터', '계산기', 'BMI', '게시판'];
 const preSettings = ['회원가입', '로그인'];
-const postSettings = ['프로필', '로그아웃', '회원정보', '회원탈퇴'];
+const postSettings = ['프로필', '정보수정', '로그아웃', '회원탈퇴'];
 
 export function Nav(){
   const [userUrls, setUserUrls] = useState([])
@@ -54,32 +55,31 @@ export function Nav(){
     setAnchorElUser(null);
   };
 
+  
+
   useEffect(() => {
     const loginUser = localStorage.getItem("loginUser")
     if (loginUser === null) {
-      setUserUrls(["/user/join","/user/login"])
+      setUserUrls(["/user/userJoin","/user/userLogin"])
       setUserSubTitle(["회원가입","로그인"])
     } else {
-      setUserUrls(["/user/logout","/user/profile","/user/modifyUser","/user/delUser","user/getUsers"])
+      setUserUrls(["/user/logout","/user/userProfile","/user/userModify","/user/userRemove","user/userList"])
       setUserSubTitle(["로그아웃","프로필","회원수정","회원탈퇴","회원목록"])
     }
   }, [])
 
-
-  const basicUrls = ["basic/counter","basic/calc","basic/bmi"]
-  const basicSubTitle = ["카운터","계산기","BMI"]
-  //const userUrls = ["/user/join","/user/login","/user/logout","/user/pofile","/user/modify","/user/withdraw","user/list"]
-  //const userSubTitle = ["회원가입","로그인","로그아웃","프로필","회원수정","회원탈퇴","회원목록"]
+  const basicUrls = ["/basic/counter","/basic/calc","/basic/bmi"]
+  const basicSubTitle = ["카운터","계산기","BMI", "게시판"]
+  // const userUrls = ["/user/join","/user/login","/user/logout","/user/profile","/user/updUser","/user/withdrawUser","user/getUsers"]
+  // const userSubTitle = ["회원가입","로그인","로그아웃","프로필","회원수정","회원탈퇴","회원목록"]
   const todoUrls = ["/todo/addTodo","/todo/getTodos","/todo/modifyTodo","/todo/removeTodo"]
   const todoSubTitle = ["할일등록","할일목록","할일수정","할일삭제"]
-  const gameUrls = ["/game/add","/game/list","/game/modify","/game/remove"]
+  const gameUrls = ["/game/addGame","/game/getGames","/game/modifyGame","/game/removeGame"]
   const gameSubTitle = ["게임등록","게임목록","게임수정","게임삭제"]
-  const teamUrls = ["/team/addTeam","/team/getTeams","/team/modify","/team/remove"]
+  const teamUrls = ["/team/addTeam","/team/getTeams","/team/modifyTeam","/team/removeTeam"]
   const teamSubTitle = ["팀등록","팀목록","팀수정","팀삭제"]
-  const boardUrls = ["/board/addArticle","/board/getArticles",
-                    "/board/modifyArticle","/board/removeArticle"]
+  const boardUrls = ["/board/writeArticle","/board/getArticles","/board/modifyArticle","/board/removeArticle"]
   const boardSubTitle = ["글등록","글목록","글수정","글삭제"]
-
   const handleClick = (value) => { 
     switch(value) {
       case '카운터':  window.location.href='/basic/counter' 
@@ -97,9 +97,9 @@ export function Nav(){
   const handleAuth = (value) => {
     alert('handleAuth '+value)
     switch(value) {
-      case '회원가입':  window.location.href='/user/join' 
+      case '회원가입':  window.location.href='/user/userJoin' 
                       break;
-      case '로그인':  window.location.href='/user/login' 
+      case '로그인':  window.location.href='/user/userLogin' 
                       break;
       default: window.location.href='/'
                       break;
@@ -126,6 +126,8 @@ export function Nav(){
               <HomeIcon color="primary" />
             </Box>
           </Typography>
+
+          
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -147,7 +149,7 @@ export function Nav(){
             </Tooltip>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="https://cdn5.vectorstock.com/i/thumb-large/82/24/brown-bear-animal-face-mask-isolated-head-icon-vector-41608224.jpg" />
+                <Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSojHl4I5WF8e-TSzGQ-NlW5moCUMCny75Vw&usqp=CAU" />
               </IconButton>
             </Tooltip>
             <Menu

@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React,{useState, useEffect} from 'react'
+import Router from "next/router";
 import tableStyles from '../common/styles/table.module.css'
-
-export default function Profile() {
-    const [profile, setProfile] = useState({})
+export default function  Profile(){
+    const [profile, setProfile] =useState({})
     useEffect(() => {
-        const loginUser = localStorage.getItem('loginUser')
+        const loginUser = localStorage.getItem("loginUser")
         const user = JSON.parse(loginUser)
         setProfile(user)
-    }, [])
+      },[]);
     return <form >
         <table className={tableStyles.table}>
             <thead>
@@ -43,7 +43,9 @@ export default function Profile() {
                     <td><b>주소</b></td>
                     <td><h3>{profile.address}</h3></td>
                 </tr>
-                
+                <tr>
+                    <td colSpan={2}><button onClick={e=>{Router.push('/user/modifyUser') }}>수정</button><button onClick={e=>{Router.push('/user/delUser')}}>탈퇴</button></td>
+                </tr>
             </tbody>
         </table>
     </form>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useDispatch } from 'react-redux'
 import tableStyles from '../common/styles/table.module.css'
-import { teamActions } from '../../redux/reducers/todoReducer.ts'
+import { teamActions } from '../../_redux/reducers/todoReducer.ts'
 export default function AddTeam() {
     const [team, setTeam] = useState({TeamId: '', homeTown: '',TeamName: '',foundingDate: '',
                                         stadiumName: '',address: '',tel: '',  })

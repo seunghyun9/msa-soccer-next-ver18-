@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { userLogin } from '@/apis/api';
 
 function Copyright(props) {
   return (
@@ -28,16 +29,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
+const userLogin = ({onSubmit, onChange, form}) =>{
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -56,6 +48,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             로그인
           </Typography>
+          <form onSubmit={onSubmit}>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -65,6 +58,8 @@ export default function SignIn() {
               label="사용자ID"
               name="email"
               autoComplete="email"
+              onChange={onChange}
+              value = {form.userid}
               autoFocus
             />
             <TextField
@@ -75,6 +70,8 @@ export default function SignIn() {
               label="비밀번호"
               type="password"
               id="password"
+              onChange={onChange}
+              value = {form.password}
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -102,9 +99,14 @@ export default function SignIn() {
               </Grid>
             </Grid>
           </Box>
+          </form>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
+        
       </Container>
+      
     </ThemeProvider>
   );
 }
+
+export default userLogin

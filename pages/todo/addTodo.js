@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useDispatch } from 'react-redux'
 import tableStyles from '../common/styles/table.module.css'
-import { todoActions } from '../../redux/reducers/todoReducer.ts' //구조분해로 할당해 임포트
+import { todoActions } from '../../_redux/reducers/todoReducer.ts' //구조분해로 할당해 임포트
 export default function AddTodo() {
     const [todo, setTodo] = useState({userid: '', task: ''})
     const dispatch = useDispatch()
