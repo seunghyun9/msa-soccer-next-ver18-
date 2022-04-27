@@ -14,7 +14,12 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import tableStyles from "../styles/Table.module.css"
 import MenuItem from '@mui/material/MenuItem';
+import { createSvgIcon } from '@mui/material/utils';
 
+const HomeIcon = createSvgIcon(
+  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />,
+  'Home',
+);
 const pages = ['카운터', '계산기', 'BMI', '게시판'];
 const preSettings = ['회원가입', '로그인'];
 const postSettings = ['프로필', '로그아웃', '회원정보', '회원탈퇴'];
@@ -37,9 +42,18 @@ export function Nav(){
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (value) => {
+    switch(value) {
+      case '회원가입':  window.location.href='/user/join' 
+                      break;
+      case '로그인':  window.location.href='/user/login' 
+                      break;
+      default: window.location.href='/'
+                      break;
+    }
     setAnchorElUser(null);
   };
+
   useEffect(() => {
     const loginUser = localStorage.getItem("loginUser")
     if (loginUser === null) {
@@ -66,13 +80,33 @@ export function Nav(){
                     "/board/modifyArticle","/board/removeArticle"]
   const boardSubTitle = ["글등록","글목록","글수정","글삭제"]
 
-  const handleClick = e =>{ 
-    alert(' >>  1'+e.target.key)
-    window.location.href='/basic/counter'
+  const handleClick = (value) => { 
+    switch(value) {
+      case '카운터':  window.location.href='/basic/counter' 
+                      break;
+      case '계산기':  window.location.href='/basic/calc' 
+                      break;
+      case 'BMI':  window.location.href='/basic/bmi'
+                      break;
+      case '게시판':  window.location.href='/board/list'
+                      break;
+      default: window.location.href='/'
+                      break;
+    }
   }
-  
+  const handleAuth = (value) => {
+    alert('handleAuth '+value)
+    switch(value) {
+      case '회원가입':  window.location.href='/user/join' 
+                      break;
+      case '로그인':  window.location.href='/user/login' 
+                      break;
+      default: window.location.href='/'
+                      break;
+    }
+  }
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{marginBottom:"70px"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -81,58 +115,22 @@ export function Nav(){
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            LOGO
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+            <Box
               sx={{
-                display: { xs: 'block', md: 'none' },
+                '& > :not(style)': {
+                  m: 2,
+                },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleClick} >
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-          >
-            LOGO3
+              <HomeIcon />
+              <HomeIcon color="primary" />
+            </Box>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleClick}
+                onClick={()=>handleClick(page)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
@@ -144,18 +142,14 @@ export function Nav(){
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" 
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSziIrwtjTT9zCFrUZsg5usMPLUoZB8oqQSeaJKymb7oxlh56Q_FFLoOCKEbXUj7Eu33Ec&usqp=CAU" />
+                <Avatar alt="Remy Sharp" src="https://avatars.githubusercontent.com/u/502757?v=4" />
               </IconButton>
             </Tooltip>
-
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" 
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScqDATHWjW8vrb2K5F5ki-MLs88-vrvw5S0fbaBznhK6PagjJJ5i1qtgeHXh0wIS7XslM&usqp=CAU" />
+                <Avatar alt="Remy Sharp" src="https://cdn5.vectorstock.com/i/thumb-large/82/24/brown-bear-animal-face-mask-isolated-head-icon-vector-41608224.jpg" />
               </IconButton>
             </Tooltip>
-            
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -170,11 +164,11 @@ export function Nav(){
                 horizontal: 'right',
               }}
               open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+              onClose={handleAuth}
             >
-              {preSettings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {preSettings.map((setting) => ( // 회원가입, 로그인
+                <MenuItem key={setting} >
+                  <Typography textAlign="center" onClick={()=>handleAuth(setting)}>{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>

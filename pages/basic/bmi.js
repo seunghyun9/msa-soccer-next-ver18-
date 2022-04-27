@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import tableStyles from '../common/styles/table.module.css'
+import tableStyles from 'styles/Table.module.css'
 export default function Bmi() {
     const proxy = 'http://localhost:5000'
     const [inputs, setInputs] = useState({})
